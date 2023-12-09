@@ -3,8 +3,10 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import SignInModal from "@/components/modal/SignInModal.vue";
 import SignUpModal from "@/components/modal/SignUpModal.vue";
 import ApiService from "@/core/service/ApiService";
+import JwtService from "@/core/service/JwtService";
 
-ApiService.setHeader()
+ApiService.setHeader();
+JwtService.isAuth.value = !!localStorage['token'];
 </script>
 
 <template>

@@ -14,12 +14,15 @@ import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password';
-import TreeTable from 'primevue/treetable';
+import DataTable from "primevue/datatable";
 import Column from 'primevue/column';
 import ToastService from 'primevue/toastservice';
 import VueAxios from "vue-axios";
 import axios from "axios";
 import ApiService from "@/core/service/ApiService";
+import RadioButton from "primevue/radiobutton";
+import InlineMessage from 'primevue/inlinemessage';
+import Dropdown from 'primevue/dropdown';
 
 
 const app = createApp(App)
@@ -36,8 +39,11 @@ app.component('MegaMenu', MegaMenu)
     .component('Button', Button)
     .component('InputText', InputText)
     .component('Password', Password)
-    .component('TreeTable', TreeTable)
-    .component('Column', Column);
+    .component('DataTable', DataTable)
+    .component('Column', Column)
+    .component('RadioButton', RadioButton)
+    .component('InlineMessage', InlineMessage)
+    .component('Dropdown', Dropdown);
 
 ApiService.init(app)
 

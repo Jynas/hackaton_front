@@ -4,12 +4,13 @@ import { ref } from 'vue';
 import ApiService from "@/core/service/ApiService";
 import Api from "@/config/Api";
 import {useToast} from "primevue/usetoast";
+import JwtService from "@/core/service/JwtService";
 
 const toast = useToast();
 const storeAuth = useAuthStore();
 
-const email = ref<string>('');
-const password = ref<string>('');
+const email = ref<string>('bimbur2014@gmail.com');
+const password = ref<string>('123123A');
 
 const signIn = ():void => {
 	if(!email.value) {
@@ -34,7 +35,24 @@ const signIn = ():void => {
 		email: email.value,
 		password: password.value,
 	}).then((response) => {
-		console.log(response);
+		JwtService.saveToken(response.data);
+		JwtService.isAuth.value = true;
+		ApiService.setHeader();
+		toast.add({
+			severity: 'success',
+			summary: 'Успех',
+			detail: 'Вы успешно авторизовались',
+			life: 3000
+		});
+		email.value = password.value = '';
+		storeAuth.stateModalSignIn = false;
+	}).catch(() => {
+		toast.add({
+			severity: 'error',
+			summary: 'Ошбика',
+			detail: 'Пароль или логин введен неправильно',
+			life: 3000
+		});
 	})
 }
 </script>
@@ -46,8 +64,8 @@ const signIn = ():void => {
 		</template>
 		<template #default>
 			<div class="flex flex-column gap-3">
-				<InputText placeholder="Email" v-model="email" />
-				<Password placeholder="Пароль" v-model="password" :feedback="false" toggleMask />
+				<InputText placeholder="Email" v-model="email" @keydown.enter="signIn" />
+				<Password placeholder="Пароль" v-model="password" :feedback="false" toggleMask @keydown.enter="signIn" />
 			</div>
 		</template>
 		<template #footer>

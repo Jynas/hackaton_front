@@ -60,6 +60,7 @@ const signIn = (): void => {
 		})
 		return;
 	}
+	isLoading.value = true;
   ApiService.post(Api.signUp, {
     name: name.value,
     lastName: lastName.value,
@@ -67,13 +68,31 @@ const signIn = (): void => {
 	  username: username.value,
     password: password.value,
   }).then((response) => {
-    toast.add({
-      severity: 'success',
-      summary: 'Успех',
-      detail: 'Вы успешно зарегисрировались',
-      life: 3000
-    });
-    console.log(response)
+		if(response.data?.succeeded) {
+			toast.add({
+				severity: 'success',
+				summary: 'Успех',
+				detail: 'Вы успешно зарегистрировались',
+				life: 3000,
+			});
+		} else {
+			toast.add({
+				severity: 'error',
+				summary: 'Успех',
+				detail: 'Вы успешно зарегистрировались',
+				life: 3000,
+			});
+		}
+	  name.value = lastName.value = email.value = username.value = password.value = '';
+		isLoading.value = false;
+  }).catch(() => {
+	  toast.add({
+		  severity: 'error',
+		  summary: 'Ошибка',
+		  detail: 'Ошибка авторизации',
+		  life: 3000,
+	  });
+	  isLoading.value = false;
   })
 }
 </script>
