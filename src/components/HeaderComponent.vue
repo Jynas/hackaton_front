@@ -8,12 +8,33 @@ const storeAuth = useAuthStore()
 
 const router = useRouter()
 
-const itemsMenuAuth = ref<[object, object]>([
+const itemsMenuAuth = ref<[object, object, object, object, object]>([
 	{
-		label: 'Профиль',
-		icon: 'pi pi-user',
+		label: 'Вопросы',
+		icon: 'pi pi-info-circle',
 		command: (): void => {
-			router.push('/profile')
+			router.push('/')
+		},
+	},
+	{
+		label: 'Подборки',
+		icon: 'pi pi-table',
+		command: (): void => {
+			router.push('/')
+		},
+	},
+	{
+		label: 'Статьи',
+		icon: 'pi pi-book',
+		command: (): void => {
+			router.push('/')
+		},
+	},
+	{
+		label: 'Рейтинг',
+		icon: 'pi pi-list',
+		command: (): void => {
+			router.push('/leaderBord')
 		},
 	},
 	{
@@ -27,12 +48,40 @@ const itemsMenuAuth = ref<[object, object]>([
 	},
 ])
 
-const itemsMenuNotAuth = ref([
+const itemsMenuNotAuth = ref<[object, object, object, object, object]>([
+	{
+		label: 'Вопросы',
+		icon: 'pi pi-info-circle',
+		command: (): void => {
+			router.push('/')
+		},
+	},
+	{
+		label: 'Подборки',
+		icon: 'pi pi-table',
+		command: (): void => {
+			router.push('/')
+		},
+	},
+	{
+		label: 'Статьи',
+		icon: 'pi pi-book',
+		command: (): void => {
+			router.push('/')
+		},
+	},
 	{
 		label: 'Авторизация',
 		icon: 'pi pi-sign-in',
 		command: (): void => {
 			storeAuth.stateModalSignIn = true
+		},
+	},
+	{
+		label: 'Рейтинг',
+		icon: 'pi pi-list',
+		command: (): void => {
+			router.push('/leaderBord')
 		},
 	},
 ])

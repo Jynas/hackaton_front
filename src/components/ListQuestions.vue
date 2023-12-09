@@ -82,8 +82,6 @@ getQuestions()
 </script>
 
 <template>
-<!-- фильтры, правильный ответ .....
-	 нерправильный ответ ...-->
 	<div class="mt-2 mb-2 flex gap-2">
 		<Dropdown v-model="currentLevel" :options="levels" placeholder="Выберите уровень" />
 		<Dropdown v-model="currentType" :options="types" placeholder="Выберите тип" />
@@ -112,11 +110,11 @@ getQuestions()
 		</Column>
 		<Column header="">
 			<template #body="slotProps">
-				<Button :label="slotProps.data.isFree ? 'Пройти' : 'Купить'" @click="slotProps.data.isFree ? getAnswers(slotProps) : ''" />
+				<Button :label="slotProps.data.isFree ? 'Пройти' : 'Купить'" :icon="!slotProps.data.isFree ? 'pi pi-lock' : 'pi pi-lock-open'" @click="slotProps.data.isFree ? getAnswers(slotProps) : ''" />
 			</template>
 		</Column>
 	</DataTable>
-	<Dialog v-model:visible="stateModal" header="Вопрос" modal @hide="correctAnswer = ''">
+	<Dialog v-model:visible="stateModal" header="Вопрос" modal @hide="correctAnswer = ''" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
 		<template #default>
 			<div class="flex flex-wrap gap-5">
 				<div>
@@ -129,8 +127,8 @@ getQuestions()
 					</div>
 				</div>
 				<div v-if="!!correctAnswer">
-					<InlineMessage class="mb-3" :severity="isSuccess ? 'success' : 'warn' ">Правильный ответ: {{ correctAnswer }}</InlineMessage>
-					<InlineMessage severity="info" >{{ isSuccess ? ' Правильный' : 'Неправильный' }} ответ потому что: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae corporis ipsa nostrum officia quaerat quia quidem quod soluta voluptatem. Cum, deserunt exercitationem labore molestias numquam odit omnis placeat quam quod? <a href="https://habr.com/ru/feed/">Ссылка на статью</a></InlineMessage>
+					<InlineMessage class="mb-3" :severity="isSuccess ? 'success' : 'warn'">Правильный ответ: {{ correctAnswer }}</InlineMessage>
+					<InlineMessage :severity="isSuccess ? 'success' : 'info' " >{{ isSuccess ? ' Правильный' : 'Неправильный' }} ответ потому что: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae corporis ipsa nostrum officia quaerat quia quidem quod soluta voluptatem. Cum, deserunt exercitationem labore molestias numquam odit omnis placeat quam quod? <a href="https://habr.com/ru/feed/">Ссылка на статью</a></InlineMessage>
 					<div  class="flex flex-column gap-3 mt-3">
 						<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae corporis ipsa nostrum officia quaerat quia quidem quod soluta voluptatem. Cum, deserunt exercitationem labore molestias numquam odit omnis placeat quam quod?</span>
 						<iframe src="https://vk.com/video_ext.php?oid=-218628569&id=456239047&hash=2d6ab6e9b0e12d63" frameborder="0" height="320" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>

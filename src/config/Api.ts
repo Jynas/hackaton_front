@@ -6,4 +6,5 @@ export default {
     questionsAnswer: `${baseUrl}/api/v1/Questions/Answer`,
     answers: `${baseUrl}/api/v1/Answers`,
     checkAnswer: `${baseUrl}/api/v1/Answers/Check`,
+    points: `${baseUrl}/api/v1/Points`,
 }
